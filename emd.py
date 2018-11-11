@@ -1,6 +1,6 @@
 import time, os, sys
 import numpy as np
-np.set_printoptions(suppress=False, linewidth=180, edgeitems=5)
+np.set_printoptions(suppress=False, linewidth=160, edgeitems=5)
 import cvxpy as cvx
 
 
@@ -11,29 +11,15 @@ def _get_threshold(x):
     return x
 
 
-def emd(nrows, c):
-    """Keep nrows == ncols."""
-    ncols = nrows
-
-    x = cvx.Variable((nrows,ncols), name='x')
-    constraints = [x >= 0]
-    for i in range(nrows):
-        constraints.append( cvx.sum(x[i,:]) == 1 )
-        constraints.append( cvx.sum(x[:,i]) == 1 )
-
-    obj = cvx.Minimize( cvx.sum(cvx.multiply(x,c)) )
-    prob = cvx.Problem(obj, constraints)
-    p_time = time.time()
-    prob.solve()
-    p_time = (time.time() - p_time) / 60.0
-
+def _report_results(prob, p_time, x):
+    """Debugging, checking that result makes sense, etc.
+    """
     print("\n\n  ========== PROB ==========\n{}".format(prob))
     print("\nstatus:        {}".format(prob.status))
     print("time (mins):   {:.5f}".format(p_time))
     print("optimal value: {:.5f}".format(prob.value))
     print("optimal soln:\n{}".format(x.value))
 
-    # Debugging, etc.
     sol_thresh = _get_threshold(x.value)
     print("optimal THRESHOLDED soln:\n{}".format(sol_thresh))
     print("sum of thresholded elements:  {:.3f}".format(np.sum(sol_thresh)))
@@ -49,21 +35,37 @@ def emd(nrows, c):
     print("len(unique): {}".format( len(np.unique(argmax_1))) )
 
 
+def emd(nrows, c):
+    """Keep nrows == ncols.
+    """
+    x = cvx.Variable((nrows,nrows), name='x')
+    constraints = [x >= 0]
+    for i in range(nrows):
+        constraints.append( cvx.sum(x[i,:]) == 1 )
+        constraints.append( cvx.sum(x[:,i]) == 1 )
+
+    obj = cvx.Minimize( cvx.sum(cvx.multiply(x,c)) )
+    prob = cvx.Problem(obj, constraints)
+
+    p_time = time.time()
+    prob.solve(verbose=True)
+    p_time = (time.time() - p_time) / 60.0
+    _report_results(prob, p_time, x)
+
 
 if __name__ == "__main__":
     # Simple 2x2 case, to confirm that it's equal to what I did earlier.
-    c = np.array([[1.0, 3.0],
-                  [3.0, 4.0]])
-    emd(nrows=c.shape[0], c=c)
+    ## c = np.array([[1.0, 3.0], [3.0, 4.0]])
+    ## emd(nrows=c.shape[0], c=c)
 
     # 10x10
-    c = np.random.rand(10,10)
-    emd(nrows=c.shape[0], c=c)
+    ## c = np.random.rand(10,10)
+    ## emd(nrows=c.shape[0], c=c)
 
     # 100x100. Solver time: 0.008 mins. But num unique nodes ~96-98 ish.
     c = np.random.rand(100,100)
     emd(nrows=c.shape[0], c=c)
 
     # 500x500. Solver time: 0.409 mins. But num unique nodes ~450-470 ish.
-    c = np.random.rand(500,500)
-    emd(nrows=c.shape[0], c=c)
+    ## c = np.random.rand(500,500)
+    ## emd(nrows=c.shape[0], c=c)
