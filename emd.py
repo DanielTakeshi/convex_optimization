@@ -58,13 +58,13 @@ if __name__ == "__main__":
     ## c = np.array([[1.0, 3.0], [3.0, 4.0]])
     ## emd(nrows=c.shape[0], c=c)
 
-    # 10x10
-    ## c = np.random.rand(10,10)
-    ## emd(nrows=c.shape[0], c=c)
+    # 10x10. Results look good since 10x10 is still easy.
+    c = np.random.rand(10,10)
+    emd(nrows=c.shape[0], c=c)
 
     # 100x100. Solver time: 0.008 mins. But num unique nodes ~96-98 ish.
-    c = np.random.rand(100,100)
-    emd(nrows=c.shape[0], c=c)
+    ## c = np.random.rand(100,100)
+    ## emd(nrows=c.shape[0], c=c)
 
     # 500x500. Solver time: 0.409 mins. But num unique nodes ~450-470 ish.
     ## c = np.random.rand(500,500)
