@@ -10,11 +10,12 @@ matrix multiplication, as one would use with `np.matrix` rather than `np.array`.
 
 ## CVXOPT
 
-- `linprog_test.py`, initial test
-- `emd_cvxopt.py`, initial EMD tests, not working
+- `linprog_test.py`, initial exploratory tests.
+- `emd_cvxopt.py`, initial EMD tests, not working.
 
 ## CVXPY
 
-- `test_cvx.py`, initial tests
-- `test_emd.py`, initial EMD tests, working
-- `emd.py`, how to scale it up?
+- `test_cvx.py`, initial exploratory tests.
+- `test_emd.py`, initial EMD tests, working.
+- `emd.py`, scaling up EMD tests. It's working, somewhat, but some solutions are not actual perfect
+  matches.
