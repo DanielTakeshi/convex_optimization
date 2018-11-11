@@ -44,17 +44,37 @@ def test1():
 
 def test2():
     """Simple linear program?
-    """
-    pass
 
+    Fortunately, docs say:
 
-def test3():
-    """Simple EMD?
+    > You can use your numeric library of choice to construct matrix and
+    > vector constants. For instance, if x is a CVXPY Variable in the
+    > expression A*x + b, A and b could be Numpy ndarrays, SciPy sparse
+    > matrices, etc. A and b could even be different types.
+
+    It gets the same solution as cvxopt.
     """
-    pass
+    x = cvx.Variable(2, name='x')
+    c = np.array([2.0, 1.0])
+
+    constraints = [
+        -x[0]  + x[1] <=  1,
+        -x[0]  - x[1] <= -2,
+                -x[1] <=  0,
+        x[0] - 2*x[1] <=  4,
+    ]
+    
+    # I think c*x is the same as cvx.sum(c*x) despite differences in numpy semantics?
+    obj = cvx.Minimize( c*x )
+    prob = cvx.Problem(obj, constraints)
+    prob.solve()
+
+    print("\n  prob1:\n{}".format(prob))
+    print("status:",       prob.status)
+    print("optimal value", prob.value)
+    print("optimal var",   x.value)
 
 
 if __name__ == "__main__":
-    test1()
+    #test1()
     test2()
-    test3()
