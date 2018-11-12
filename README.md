@@ -18,7 +18,8 @@ matrix multiplication, as one would use with `np.matrix` rather than `np.array`.
 - `test_cvx.py`, initial exploratory tests.
 - `test_emd.py`, initial EMD tests, working.
 - `emd.py`, scaling up EMD tests. It's working, somewhat, but some solutions are not actual perfect
-  matches. Keep this fixed, because I referenced it in [a Google Groups question][1].
+  matches. Keep this fixed, because I referenced it in [a Google Groups question][1]. Since I keep
+  that fixed, for further tests involving this, go into the `tests/` directory.
 
 
 [1]:https://groups.google.com/forum/#!topic/cvxpy/hS03fikOzl4
