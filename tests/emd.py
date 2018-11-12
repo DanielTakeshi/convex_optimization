@@ -109,10 +109,10 @@ def emd(args, nrows, c):
     prob = cvx.Problem(obj, constraints)
 
     p_time = time.time()
-    if args.max_iter is None:
-        prob.solve(verbose=True)
-    else:
-        prob.solve(verbose=True, max_iter=args.max_iter)
+    prob.solve(verbose=True,
+               max_iter=args.max_iter,
+               eps_abs=args.eps_abs,
+               eps_rel=args.eps_rel)
     p_time = (time.time() - p_time) / 60.0
 
     _report_results(prob, p_time, x, args)
@@ -121,8 +121,11 @@ def emd(args, nrows, c):
 if __name__ == "__main__":
     pp = argparse.ArgumentParser()
     pp.add_argument('--nrows', type=int, default=10)
-    pp.add_argument('--max_iter', type=int, default=None)
     pp.add_argument('--thresh', type=float, default=0.01)
+    # For OSQP see: https://osqp.org/docs/interfaces/solver_settings.html
+    pp.add_argument('--max_iter', type=int, default=4000)
+    pp.add_argument('--eps_abs', type=float, default=1e-3)
+    pp.add_argument('--eps_rel', type=float, default=1e-3)
     args = pp.parse_args() 
 
     c = np.random.rand(args.nrows, args.nrows)
