@@ -55,6 +55,8 @@ max iterations.
 
 ## 400 x 400 Cost Matrix
 
+### Epsilon 1e-6
+
 The 400x400 case looks good! (Note: I benchmarked the 400x400 cases after doing initial 500x500
 benchmarking, since I wanted to see the runtime differences). ~16K iters, ~95 seconds. That's more
 than acceptable.
@@ -71,10 +73,28 @@ I ran a few more times. In all the iters/runtimes were, including above:
 
 and all got what I can tell are great solutions that look like the plot above.
 
+### Epsilon 5e-6
+
+Here, I increase the epsilon to relax the precision requirements. I ran 10 trials with the same 50K
+max iters, and got these:
+
+- 11K iters,  61 seconds, but 399/399 unique
+- 19K iters, 101 seconds
+- 20K iters, 108 seconds
+-  9K iters,  48 seconds
+-  7K iters,  36 seconds
+- 24K iters, 125 seconds
+- 12K iters,  61 seconds
+- 15K iters,  78 seconds
+- 19K iters,  98 seconds
+- 19K iters,  97 seconds
+
+Huh, so all but *one* (the first one I ran) got 400 unique values for the maximums across the
+rows/columns. Interesting. Maybe I can go with 5e-6 as the threshold, just for exploratory purposes?
 
 ## 500 x 500 Cost Matrix
 
-I increased the precision:
+I increased the precision requirements:
 
 ```
 python emd.py --nrows=500 --max_iter=100000 --eps_abs=1e-6 --eps_rel=1e-6
