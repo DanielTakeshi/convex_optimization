@@ -34,7 +34,8 @@ plots.)
 ![](figs/c100x100_defaults.png)
 
 The 100x100 cost matrix case usually resolves within under 1000 iterations, so there's no point in
-increasing the `max_iter` solver parameter.
+increasing the `max_iter` solver parameter. That is, assuming all other parameters are set at their
+default values, in particular `eps_abs` and `eps_rel`.
 
 *HOWEVER* .... if you run:
 
