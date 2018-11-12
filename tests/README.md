@@ -53,6 +53,25 @@ This looks great! This is basically what I wanted to see, as there are essential
 0 and 1. The above often finishes within 2000-8000 iterations, which is easily covered with the 100K
 max iterations.
 
+## 400 x 400 Cost Matrix
+
+The 400x400 case looks good! (Note: I benchmarked the 400x400 cases after doing initial 500x500
+benchmarking, since I wanted to see the runtime differences). ~16K iters, ~95 seconds. That's more
+than acceptable.
+
+![](figs/c400x400_perfect.png)
+
+I ran a few more times. In all the iters/runtimes were, including above:
+
+- 16K iters, 95 seconds
+- 35K iters, 187 seconds
+- 13K iters, 71 seconds
+- 16K iters, 87 seconds
+- 50K iters, 277 seconds (max time, but seems like it got a good solution)
+
+and all got what I can tell are great solutions that look like the plot above.
+
+
 ## 500 x 500 Cost Matrix
 
 I increased the precision:
