@@ -123,6 +123,7 @@ if __name__ == "__main__":
     pp.add_argument('--nrows', type=int, default=10)
     pp.add_argument('--thresh', type=float, default=0.01)
     # For OSQP see: https://osqp.org/docs/interfaces/solver_settings.html
+    # Default settings in argparser here are directly from those docs.
     pp.add_argument('--max_iter', type=int, default=4000)
     pp.add_argument('--eps_abs', type=float, default=1e-3)
     pp.add_argument('--eps_rel', type=float, default=1e-3)

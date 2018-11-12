@@ -1,11 +1,12 @@
 # Testing EMD Accuracy and Scalability
 
 The `emd.py` here is inspired from the one at the top-level directory, except I am moving all
-subsequent tests over here. I have figures here, which plot the *elements* in the solution matrix
-`x`, which ideally is all 0s except for 1s which indicate edges. Of course, due to numerical
-imprecision and various approximations, solutions will not be exact. I plot the elements in the left
-sub-plot, and I "zoom-in" to the larger ones to the right, to better see where any inaccuracies
-occur.
+subsequent tests over here.
+
+I plot the *elements* in the solution matrix `x`, which ideally is all 0s except for 1s which
+indicate edges. Of course, due to numerical imprecision and various approximations, solutions will
+not be exact. I plot the elements in the left sub-plot, and I "zoom-in" to the larger ones to the
+right, to better see where any inaccuracies occur.
 
 For default OSQP solver settings, [see this page][1].
 
@@ -50,8 +51,26 @@ This looks great! This is basically what I wanted to see, as there are essential
 0 and 1. The above often finishes within 2000-8000 iterations, which is easily covered with the 100K
 max iterations.
 
-## 1000 x 1000 Cost Matrix
+## 500 x 500 Cost Matrix
 
+I increased the precision:
 
+```
+python emd.py --nrows=500 --max_iter=100000 --eps_abs=1e-6 --eps_rel=1e-6
+```
+
+and get this:
+
+![](figs/c500x500_great.png)
+
+So, the 'unique' elements are correct, for all 500. There are a handful of cases where the largest
+elements are not 1 but around 0.55-ish, but those are still the 'maximum' or the 'right' candidates,
+it appears. The above took ~33K iterations and lasted ~300 seconds, which is still very reasonable.
+I think this is probably what I can use.
+
+Running the above a second time went a bit longer, ~54K iterations and ~450 seconds, but the
+solution looks even better:
+
+![](figs/c500x500_perfect.png)
 
 [1]:https://osqp.org/docs/interfaces/solver_settings.html
