@@ -29,7 +29,8 @@ This is what we typically get for 100x100 cost matrices, we get most values 0, a
 oddly, we get some values roughly in between, closer to the 100-element mark in the bottom right.
 This kind of makes sense. That region only has the 200 largest elements in the entire solution
 matrix. (Thresholding values below 0.01 is not going to make a noticeable difference in these
-plots.)
+plots.) The "unique" values are 98 and 99 in the lower left, whereas we want those to be 100 and
+100.
 
 ![](figs/c100x100_defaults.png)
 
