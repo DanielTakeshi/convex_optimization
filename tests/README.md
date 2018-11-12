@@ -19,6 +19,13 @@ sometimes). Looks good, and the sum of thresholded elements is indeed around 10.
 
 ## 100 x 100 Cost Matrix
 
+This is what we typically get for 100x100 cost matrices, we get most values 0, a few close to 1, but
+oddly, we get some values roughly in between, closer to the 100-element mark in the bottom right.
+This kind of makes sense. That region only has the 200 largest elements in the entire solution
+matrix. (Thresholding values below 0.01 is not going to make a noticeable difference in these
+plots.)
 
+
+![](figs/c100x100_defaults.png)
 
 ## 1000 x 1000 Cost Matrix
