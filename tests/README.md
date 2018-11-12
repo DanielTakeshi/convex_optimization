@@ -46,7 +46,9 @@ this is now a typical outcome:
 
 ![](figs/c100x100_great.png)
 
-
+This looks great! This is basically what I wanted to see, as there are essentially no values between
+0 and 1. The above often finishes within 2000-8000 iterations, which is easily covered with the 100K
+max iterations.
 
 ## 1000 x 1000 Cost Matrix
 
